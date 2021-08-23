@@ -17,7 +17,11 @@ OBJDUMP := rust-objdump --arch-name=riscv64
 OBJCOPY := rust-objcopy --binary-architecture=riscv64
 
 TEST ?= 0
-build: env kernel
+
+build: env $(KERNEL_BIN)
+
+$(KERNEL_BIN): kernel
+	@$(OBJCOPY) $(KERNEL_ELF) --strip-all -O binary $@
 
 env:
 	(rustup target list | grep "riscv64gc-unknown-none-elf (installed)") || rustup target add $(TARGET)
