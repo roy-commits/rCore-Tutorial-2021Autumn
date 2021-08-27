@@ -6,13 +6,13 @@
 
 #[macro_use]
 mod console;
+mod batch;
 mod lang_items;
 mod logging;
 mod sbi;
+mod sync;
 mod syscall;
 mod trap;
-mod batch;
-mod sync;
 
 global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
@@ -23,10 +23,8 @@ fn clear_bss() {
         fn ebss();
     }
     unsafe {
-        core::slice::from_raw_parts_mut(
-            sbss as usize as *mut u8, 
-            ebss as usize - sbss as usize,
-        ).fill(0);
+        core::slice::from_raw_parts_mut(sbss as usize as *mut u8, ebss as usize - sbss as usize)
+            .fill(0);
     }
 }
 
