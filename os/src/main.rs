@@ -5,6 +5,9 @@
 #![feature(panic_info_message)]
 
 #[macro_use]
+extern crate log;
+
+#[macro_use]
 mod console;
 mod batch;
 mod lang_items;
