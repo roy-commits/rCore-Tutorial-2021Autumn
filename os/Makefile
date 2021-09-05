@@ -16,6 +16,8 @@ KERNEL_ENTRY_PA := 0x80200000
 OBJDUMP := rust-objdump --arch-name=riscv64
 OBJCOPY := rust-objcopy --binary-architecture=riscv64
 
+TEST ?= 0
+
 build: env $(KERNEL_BIN)
 
 $(KERNEL_BIN): kernel
@@ -28,6 +30,7 @@ env:
 	rustup component add llvm-tools-preview
 
 kernel:
+	@cd ../user && make build TEST=$(TEST)
 	@cargo build --release
 
 clean:
