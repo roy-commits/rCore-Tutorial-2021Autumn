@@ -4,6 +4,7 @@
 #![feature(asm)]
 #![feature(panic_info_message)]
 
+use core::arch::global_asm;
 use log::*;
 
 #[macro_use]
